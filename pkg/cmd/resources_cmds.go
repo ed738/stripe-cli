@@ -416,6 +416,11 @@ func addAllResourcesCmds(rootCmd *cobra.Command) {
 	}, &Config)
 	resource.NewOperationCmd(rCustomersCmd.Cmd, "delete", "/v1/customers/{customer}", http.MethodDelete, map[string]string{}, &Config)
 	resource.NewOperationCmd(rCustomersCmd.Cmd, "delete_discount", "/v1/customers/{customer}/discount", http.MethodDelete, map[string]string{}, &Config)
+	resource.NewOperationCmd(rCustomersCmd.Cmd, "fund_cash_balance", "/v1/test_helpers/customers/{customer}/fund_cash_balance", http.MethodPost, map[string]string{
+		"amount":    "integer",
+		"currency":  "string",
+		"reference": "string",
+	}, &Config)
 	resource.NewOperationCmd(rCustomersCmd.Cmd, "list", "/v1/customers", http.MethodGet, map[string]string{
 		"created":        "integer",
 		"email":          "string",
@@ -1146,6 +1151,7 @@ func addAllResourcesCmds(rootCmd *cobra.Command) {
 		"return_url":     "string",
 	}, &Config)
 	resource.NewOperationCmd(rSetupIntentsCmd.Cmd, "create", "/v1/setup_intents", http.MethodPost, map[string]string{
+		"attach_to_self": "boolean",
 		"confirm":        "boolean",
 		"customer":       "string",
 		"description":    "string",
@@ -1155,6 +1161,7 @@ func addAllResourcesCmds(rootCmd *cobra.Command) {
 		"usage":          "string",
 	}, &Config)
 	resource.NewOperationCmd(rSetupIntentsCmd.Cmd, "list", "/v1/setup_intents", http.MethodGet, map[string]string{
+		"attach_to_self": "boolean",
 		"created":        "integer",
 		"customer":       "string",
 		"ending_before":  "string",
@@ -1166,6 +1173,7 @@ func addAllResourcesCmds(rootCmd *cobra.Command) {
 		"client_secret": "string",
 	}, &Config)
 	resource.NewOperationCmd(rSetupIntentsCmd.Cmd, "update", "/v1/setup_intents/{intent}", http.MethodPost, map[string]string{
+		"attach_to_self": "boolean",
 		"customer":       "string",
 		"description":    "string",
 		"payment_method": "string",
